@@ -8,7 +8,7 @@
 
     export function ThemeProvider({
       children,
-      defaultTheme = "system",
+  defaultTheme = "system",
       storageKey = "vite-ui-theme",
     }) {
       const [theme, setTheme] = useState(() => localStorage.getItem(storageKey) || defaultTheme);
