@@ -14,7 +14,7 @@
     import ProjectDetail from '@/components/ProjectDetail';
     import CertificateDetail from '@/components/CertificateDetail';
     import FileDetail from '@/components/FileDetail';
-    import ThemeProvider from '@/contexts/ThemeContext';
+import { ThemeProvider } from '@/components/ThemeProvider';
     import AuthProvider, { useAuth } from '@/contexts/AuthContext';
     import DataProvider from '@/contexts/DataContext';
     import ChatWidget from '@/components/ChatWidget';

@@ -3,11 +3,13 @@
     import { motion } from 'framer-motion';
     import { useToast } from '@/components/ui/use-toast';
     import { useData } from '@/contexts/DataContext';
+import { useTheme } from '@/components/ThemeProvider';
     import { Palette, Share2, Mail, Save } from 'lucide-react';
 
     const SettingsManager = () => {
       const { toast } = useToast();
       const { settings, saveSettings } = useData();
+  const { theme, setTheme, themes } = useTheme();
       const [formData, setFormData] = useState(settings);
 
       const handleSocialChange = (platform, value) => {
@@ -39,6 +41,17 @@
           }
         }));
       };
+
+  const handleThemeChange = (newTheme) => {
+    setTheme(newTheme);
+    setFormData(prev => ({
+      ...prev,
+      theme: {
+        ...prev.theme,
+        name: newTheme
+      }
+    }));
+  };
 
       const handleSubmit = (e) => {
         e.preventDefault();
@@ -161,13 +174,17 @@
               <Palette className="mr-3" /> Preferensi Tema
             </h3>
             <p className="text-gray-400 mb-4">Kustomisasi tampilan dan nuansa portofolio Anda.</p>
-            <button
-              type="button"
-              onClick={() => toast({ title: "🚧 Fitur ini belum diimplementasikan", description: "Jangan khawatir! Anda bisa memintanya di prompt berikutnya! 🚀" })}
-              className="btn btn-outline-primary"
+        <select
+          value={theme}
+          onChange={(e) => handleThemeChange(e.target.value)}
+          className="w-full p-3 bg-transparent border border-gray-600 rounded-lg focus:border-indigo-500 focus:outline-none"
             >
-              Kustomisasi Tema
-            </button>
+          {themes.map((t) => (
+            <option key={t.name} value={t.name}>
+              {t.name}
+            </option>
+          ))}
+        </select>
           </motion.div>
 
           <motion.div

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { NavLink, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme } from '@/components/ThemeProvider';
 import { Menu, X, Sun, Moon, Home, Briefcase, Award, FileText, User } from 'lucide-react';
 
 const Header = () => {
-  const { isDark, toggleTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
 
   const navItems = [
@@ -55,14 +55,6 @@ const Header = () => {
                 {item.name}
               </NavLink>
             ))}
-            <motion.button
-              onClick={toggleTheme}
-              className="p-2 rounded-full glass-effect hover:bg-indigo-500/20 transition-all"
-              whileHover={{ scale: 1.1, rotate: 15 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </motion.button>
           </div>
 
           <div className="md:hidden">
@@ -117,18 +109,6 @@ const Header = () => {
                   </motion.div>
                 ))}
               </nav>
-              <div className="mt-auto">
-                <motion.button
-                  onClick={toggleTheme}
-                  className="w-full flex items-center justify-center space-x-3 p-3 rounded-lg glass-effect hover:bg-indigo-500/20 transition-all"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  {isDark ? <Sun size={20} /> : <Moon size={20} />}
-                  <span>Switch to {isDark ? 'Light' : 'Dark'} Mode</span>
-                </motion.button>
-              </div>
             </motion.div>
           </>
         )}

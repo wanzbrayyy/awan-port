@@ -6,35 +6,44 @@
       setTheme: () => null,
     });
 
-    import { useData } from '@/contexts/DataContext';
-
     export function ThemeProvider({
       children,
       defaultTheme = "system",
       storageKey = "vite-ui-theme",
     }) {
       const [theme, setTheme] = useState(() => localStorage.getItem(storageKey) || defaultTheme);
-      const { settings } = useData();
-      const customTheme = settings.theme || {
-        primaryColor: '#6D28D9',
-        secondaryColor: '#D946EF',
-      };
+  const [themes, setThemes] = useState([]);
+
+  useEffect(() => {
+    fetch("/themes.json")
+      .then((res) => res.json())
+      .then(setThemes);
+  }, []);
 
       useEffect(() => {
         const root = window.document.documentElement;
         root.classList.remove("light", "dark");
 
+    // Remove any existing theme stylesheets
+    const existingLink = document.getElementById("dynamic-theme");
+    if (existingLink) {
+      existingLink.remove();
+    }
+
         if (theme === "system") {
           const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
           root.classList.add(systemTheme);
-        } else {
-          root.classList.add(theme);
+    } else if (theme.toLowerCase() !== "default") {
+      const selectedTheme = themes.find((t) => t.name === theme);
+      if (selectedTheme) {
+        const link = document.createElement("link");
+        link.id = "dynamic-theme";
+        link.rel = "stylesheet";
+        link.href = selectedTheme.url;
+        document.head.appendChild(link);
+      }
         }
-
-        root.style.setProperty('--color-primary', customTheme.primaryColor);
-        root.style.setProperty('--color-secondary', customTheme.secondaryColor);
-
-      }, [theme, customTheme]);
+  }, [theme, themes]);
 
       const value = {
         theme,
@@ -42,6 +51,7 @@
           localStorage.setItem(storageKey, newTheme);
           setTheme(newTheme);
         },
+    themes
       };
 
       return (

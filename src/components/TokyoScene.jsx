@@ -4,11 +4,11 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme } from '@/components/ThemeProvider';
 
 const TokyoScene = () => {
     const mountRef = useRef(null);
-    const { isDark } = useTheme();
+    const { theme } = useTheme();
 
     useEffect(() => {
         const currentMount = mountRef.current;
@@ -80,7 +80,7 @@ const TokyoScene = () => {
             }
             renderer.dispose();
         };
-    }, [isDark]);
+    }, [theme]);
 
     return <div ref={mountRef} className="absolute inset-0 z-0" />;
 };
