@@ -6,6 +6,7 @@
     import { useToast } from '@/components/ui/use-toast';
     import { motion } from 'framer-motion';
     import { LogOut, LayoutDashboard } from 'lucide-react';
+    import AiTrainer from '@/components/admin/AiTrainer';
 
     function AdminDashboard() {
         const navigate = useNavigate();
@@ -65,6 +66,10 @@
                                 <p className="text-gray-400">Kelola dan perbarui konten untuk bagian {feature.toLowerCase()}.</p>
                             </motion.div>
                         ))}
+                    </div>
+
+                    <div className="mt-8">
+                      <AiTrainer />
                     </div>
 
                     <motion.p

@@ -17,7 +17,7 @@
           setMessages([
             {
               id: 1,
-              text: 'Halo! Saya Asisten Awan. Ada yang bisa saya bantu?',
+              text: 'Yo, ada yang bisa dibantuin? Tanya aja, santai.',
               sender: 'bot',
             },
           ]);
@@ -31,12 +31,19 @@
       const getBotResponse = (userInput) => {
         const lowerCaseInput = userInput.toLowerCase();
         
+        const slangResponses = [
+          "Waduh, kurang tau nih. Coba tanya yang lain, siapa tau aku ngerti.",
+          "Gak mudeng euy, bisa tolong jelasin lagi pertanyaannya?",
+          "Wah, pertanyaannya sulit banget, Cuy. Aku cari info dulu ya.",
+          "Hmm, kayaknya aku perlu belajar lagi soal ini. Nanti aku kabarin lagi ya!",
+        ];
+
         if (!aiKnowledge || aiKnowledge.trim() === '') {
-          return "Maaf, sepertinya saya belum memiliki pengetahuan. Admin perlu mengunggah file .txt terlebih dahulu.";
+          return "Bro, sorry nih, otakku masih kosong. Tolong admin isi dulu ya, biar aku pinter.";
         }
 
         const sentences = aiKnowledge.toLowerCase().split(/[.!?]/);
-        let bestMatch = { score: 0, sentence: "Maaf, saya tidak mengerti. Bisakah Anda bertanya dengan cara lain?" };
+        let bestMatch = { score: 0, sentence: slangResponses[Math.floor(Math.random() * slangResponses.length)] };
 
         const inputWords = new Set(lowerCaseInput.split(' '));
 
@@ -52,7 +59,14 @@
           }
         });
 
-        return bestMatch.sentence.charAt(0).toUpperCase() + bestMatch.sentence.slice(1) + '.';
+        const finalResponse = bestMatch.sentence.charAt(0).toUpperCase() + bestMatch.sentence.slice(1);
+        const slangGreeting = ["Santai aja, ini jawabannya: ", "Oke, jadi gini, ", "Nih, dengerin ya, "];
+
+        if (bestMatch.score > 0) {
+          return `${slangGreeting[Math.floor(Math.random() * slangGreeting.length)]}${finalResponse}.`;
+        }
+
+        return finalResponse;
       };
 
       const handleSend = () => {

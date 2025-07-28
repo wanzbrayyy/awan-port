@@ -9,6 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@babel/generator": "^7.28.0",
+    "@babel/parser": "^7.28.0",
+    "@babel/traverse": "^7.28.0",
+    "@babel/types": "^7.28.2",
     "@emailjs/browser": "^4.3.3",
     "@lottiefiles/react-lottie-player": "^3.5.3",
     "@radix-ui/react-alert-dialog": "^1.0.5",

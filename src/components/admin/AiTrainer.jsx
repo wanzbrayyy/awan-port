@@ -67,7 +67,7 @@
               onChange={(e) => setKnowledge(e.target.value)}
               rows="15"
               className="w-full p-3 bg-transparent border border-gray-600 rounded-lg focus:border-indigo-500 focus:outline-none resize-y"
-              placeholder="Masukkan pengetahuan di sini... Contoh: 'Jam kerja saya dari jam 9 pagi sampai 5 sore.'"
+              placeholder="Contoh: 'Kalo mau ngobrolin kerjaan, jam kerjaku dari jam 9 pagi sampe 5 sore ya. Kalo soal skill, jagoan gue di C++, Vue, sama React. Udah pernah bikin 50+ proyek, jadi santai aja kalo mau nanya-nanya.'"
             />
             <div className="mt-4 flex flex-col sm:flex-row gap-4">
               <label
