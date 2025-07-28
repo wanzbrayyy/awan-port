@@ -40,7 +40,21 @@
           serviceId: '',
           templateId: '',
           publicKey: ''
-        }
+        },
+        widgets: {
+          hero: { name: 'Hero Section', active: true },
+          about: { name: 'About Me', active: true },
+          skills: { name: 'Skills Section', active: true },
+          projects: { name: 'Projects Page', active: true },
+          certificates: { name: 'Certificates Page', active: true },
+          files: { name: 'Files Page', active: true },
+          contact: { name: 'Contact Form', active: true },
+          spline: { name: '3D Spline/GLB', active: true },
+        },
+        theme: {
+          primaryColor: '#6D28D9',
+          secondaryColor: '#D946EF',
+        },
       });
       const [aiKnowledge, setAiKnowledge] = useState('');
 

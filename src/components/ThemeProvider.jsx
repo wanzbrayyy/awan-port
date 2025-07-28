@@ -6,12 +6,19 @@
       setTheme: () => null,
     });
 
+    import { useData } from '@/contexts/DataContext';
+
     export function ThemeProvider({
       children,
       defaultTheme = "system",
       storageKey = "vite-ui-theme",
     }) {
       const [theme, setTheme] = useState(() => localStorage.getItem(storageKey) || defaultTheme);
+      const { settings } = useData();
+      const customTheme = settings.theme || {
+        primaryColor: '#6D28D9',
+        secondaryColor: '#D946EF',
+      };
 
       useEffect(() => {
         const root = window.document.documentElement;
@@ -20,11 +27,14 @@
         if (theme === "system") {
           const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
           root.classList.add(systemTheme);
-          return;
+        } else {
+          root.classList.add(theme);
         }
 
-        root.classList.add(theme);
-      }, [theme]);
+        root.style.setProperty('--color-primary', customTheme.primaryColor);
+        root.style.setProperty('--color-secondary', customTheme.secondaryColor);
+
+      }, [theme, customTheme]);
 
       const value = {
         theme,

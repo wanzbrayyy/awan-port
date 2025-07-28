@@ -7,6 +7,8 @@
     import { motion } from 'framer-motion';
     import { LogOut, LayoutDashboard } from 'lucide-react';
     import AiTrainer from '@/components/admin/AiTrainer';
+    import WidgetManager from '@/components/admin/WidgetManager';
+    import ThemeManager from '@/components/admin/ThemeManager';
 
     function AdminDashboard() {
         const navigate = useNavigate();
@@ -68,8 +70,13 @@
                         ))}
                     </div>
 
-                    <div className="mt-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
                       <AiTrainer />
+                      <WidgetManager />
+                    </div>
+
+                    <div className="mt-8">
+                      <ThemeManager />
                     </div>
 
                     <motion.p
