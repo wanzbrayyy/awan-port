@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>NoSuchBucket</Code><Message>The specified bucket does not exist</Message><BucketName>model-downloads.sketchfab.com</BucketName><RequestId>R3XC083NHAR0NFHE</RequestId><HostId>rdUr2sqJUzexGle0MNQgb7h++OI6YA72XZy17bKxKngCqB8Tkaa3/evdV/DaEzYNF5LJUK9PWkM=</HostId></Error>
