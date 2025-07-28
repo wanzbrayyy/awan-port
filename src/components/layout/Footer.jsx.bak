@@ -12,7 +12,7 @@ const Footer = () => {
     >
       <div className="container mx-auto px-4 text-center">
         <div className="mb-4">
-          <span className="text-2xl font-bold gradient-text">awan berlian</span>
+          <span className="text-2xl font-bold gradient-text">Awan Berlian</span>
         </div>
         <p className="text-gray-400 mb-2">
           © {new Date().getFullYear()} Awan Berlian. Semua hak dilindungi.
