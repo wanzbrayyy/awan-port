@@ -6,8 +6,10 @@ const isDev = process.env.NODE_ENV !== 'production';
 let inlineEditPlugin, editModeDevPlugin;
 
 if (isDev) {
-	inlineEditPlugin = (await import('./plugins/visual-editor/vite-plugin-react-inline-editor.js')).default;
-	editModeDevPlugin = (await import('./plugins/visual-editor/vite-plugin-edit-mode.js')).default;
+	const inlineEditPluginModule = await import('./plugins/visual-editor/vite-plugin-react-inline-editor.js');
+	inlineEditPlugin = inlineEditPluginModule.default;
+	const editModeDevPluginModule = await import('./plugins/visual-editor/vite-plugin-edit-mode.js');
+	editModeDevPlugin = editModeDevPluginModule.default;
 }
 
 const configHorizonsViteErrorHandler = `

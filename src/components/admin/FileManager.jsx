@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useData } from '@/contexts/DataContext';
 import { useToast } from '@/components/ui/use-toast';
+import Swal from 'sweetalert2';
 
 const FileManager = () => {
   const { files, addFile, updateFile, deleteFile } = useData();
@@ -67,15 +68,52 @@ const FileManager = () => {
     }
   };
 
-  const handleFileUpload = (e) => {
+  const handleFileUpload = async (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const url = URL.createObjectURL(file);
-      setFormData({ 
-        ...formData, 
-        downloadUrl: url,
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    Swal.fire({
+      title: 'Uploading...',
+      text: 'Please wait while the file is being uploaded.',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    try {
+      const response = await fetch('http://localhost:3001/api/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const data = await response.json();
+      setFormData(prev => ({
+        ...prev,
+        downloadUrl: data.url,
         fileSize: (file.size / 1024 / 1024).toFixed(2) + ' MB',
         fileType: file.type || file.name.split('.').pop()
+      }));
+
+      Swal.fire({
+        title: 'Success!',
+        text: 'File uploaded successfully.',
+        icon: 'success',
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      Swal.fire({
+        title: 'Error!',
+        text: 'File upload failed. Please try again.',
+        icon: 'error',
       });
     }
   };
