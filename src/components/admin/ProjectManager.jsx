@@ -93,7 +93,7 @@ const ProjectManager = () => {
     });
 
     try {
-      const response = await fetch('http://localhost:3001/api/upload', {
+      const response = await fetch('/api/upload', {
         method: 'POST',
         body: formData,
       });

@@ -6,10 +6,8 @@ const isDev = process.env.NODE_ENV !== 'production';
 let inlineEditPlugin, editModeDevPlugin;
 
 if (isDev) {
-	const inlineEditPluginModule = await import('./plugins/visual-editor/vite-plugin-react-inline-editor.js');
-	inlineEditPlugin = inlineEditPluginModule.default;
-	const editModeDevPluginModule = await import('./plugins/visual-editor/vite-plugin-edit-mode.js');
-	editModeDevPlugin = editModeDevPluginModule.default;
+	inlineEditPlugin = (await import('./plugins/visual-editor/vite-plugin-react-inline-editor.js')).default;
+	editModeDevPlugin = (await import('./plugins/visual-editor/vite-plugin-edit-mode.js')).default;
 }
 
 const configHorizonsViteErrorHandler = `
@@ -204,6 +202,13 @@ export default defineConfig({
 			'Cross-Origin-Embedder-Policy': 'credentialless',
 		},
 		allowedHosts: true,
+		proxy: {
+			'/api': {
+				target: 'http://localhost:3001',
+				changeOrigin: true,
+				secure: false,
+			},
+		},
 	},
 	resolve: {
 		extensions: ['.jsx', '.js', '.tsx', '.ts', '.json', ],
